@@ -11,24 +11,20 @@
  */
 int check_builtin(char **args)
 {
-    if (args[0] == NULL)
-        return 0;
-
-    if (_strcmp(args[0], "exit") == 0)
-    {
-        shell_exit();
-        return 1;
-    }
-
-    if (_strcmp(args[0], "env") == 0)
-    {
-        shell_env();
-        return 1;
-    }
-
-    return 0;  
+	if (args[0] == NULL)
+		return (0);
+	if (_strcmp(args[0], "exit") == 0)
+	{
+		shell_exit();
+		return (1);
+	}
+	if (_strcmp(args[0], "env") == 0)
+	{
+		shell_env();
+		return (1);
+	}
+	return (0);
 }
-
 /**
  * shell_exit - Exits the shell.
  * @void: No parameters.
@@ -37,7 +33,7 @@ int check_builtin(char **args)
  */
 void shell_exit(void)
 {
-    exit(EXIT_SUCCESS);
+	exit(EXIT_SUCCESS);
 }
 
 /**
@@ -48,13 +44,11 @@ void shell_exit(void)
  */
 void shell_env(void)
 {
-    extern char **environ;
-    int i = 0;
+	int i = 0;
 
-    while (environ[i])
-    {
-        printf("%s\n", environ[i]);
-        i++;
-    }
+	while (environ[i])
+	{
+	printf("%s\n", environ[i]);
+		i++;
+	}
 }
-

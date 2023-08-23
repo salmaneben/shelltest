@@ -49,6 +49,6 @@ int _strcmp(const char *s1, const char *s2);
 size_t _strlen(const char *s);
 
 /* Add other prototypes as needed */
-
+extern char **environ;
 #endif /* SHELL_H */
 

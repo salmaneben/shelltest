@@ -17,32 +17,34 @@ char *find_in_path(char *command)
 	struct stat st;
 
 	if (command == NULL || PATH == NULL)
-return NULL;
-	path_dup = _strdup(PATH);  /* Duplicate the PATH string for tokenization*/
 
-	token = strtok(path_dup, ":");
+		return (NULL);
+	path_dup = _strdup(PATH);
+/* Duplicate the PATH string for tokenization*/
+token = strtok(path_dup, ":");
 	while (token != NULL)
-{
-full_path = malloc(strlen(token) + strlen(command) + 2);  
-	/* +2 for '/' and '\0'*/
-	if (!full_path)
 	{
-		perror("find_in_path");
-		free(path_dup);
-	return NULL;
+		full_path = malloc(strlen(token) + strlen(command) + 2);
+/* +2 for '/' and '\0'*/
+		if (!full_path)
+		{
+			perror("find_in_path");
+			free(path_dup);
+			return (NULL);
+		}
+		strcpy(full_path, token);
+		strcat(full_path, "/");
+		strcat(full_path, command);
+		if (stat(full_path, &st) == 0 && (st.st_mode & S_IXUSR))
+		{
+			free(path_dup);
+			return (full_path);
+		}
+		free(full_path);
+		full_path = NULL;
+		token = strtok(NULL, ":");
 	}
-	strcpy(full_path, token);
-	strcat(full_path, "/");
-	strcat(full_path, command);
-	if (stat(full_path, &st) == 0 && (st.st_mode & S_IXUSR))
-	{
-		free(path_dup);
-	return full_path;
-	}
-	free(full_path);
-	full_path = NULL;
-	token = strtok(NULL, ":");
+	free(path_dup);
+	return (NULL);
 }
-free(path_dup);
-	return NULL;
-}
+
